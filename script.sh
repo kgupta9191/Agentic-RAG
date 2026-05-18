@@ -6,14 +6,12 @@ REQUIRED_PYTHON="3.10"
 VECTOR_DB="src/ingest.py"
 TARGET_FILE="src/app.py"
 
-# Load modules from requirements.txt
+# Load dependencies from requirements.txt
 REQUIREMENTS_FILE="requirements.txt"
 if [ ! -f "$REQUIREMENTS_FILE" ]; then
     echo "requirements.txt not found."
     exit 1
 fi
-
-mapfile -t MODULES < <(grep -v '^\s*#' "$REQUIREMENTS_FILE" | grep -v '^\s*$' | sed 's/[>=<!].*//' | tr -d ' ')
 
 PYTHON_CMD="python$REQUIRED_PYTHON"
 
@@ -62,17 +60,10 @@ if ! "$PYTHON_PATH" -m pip --version &> /dev/null; then
     fi
 fi
 
-# Install missing modules using the same Python
-for module in "${MODULES[@]}"; do
-    echo "Checking module: $module"
-
-    if "$PYTHON_PATH" -c "import $module" &> /dev/null; then
-        echo "$module already installed."
-    else
-        echo "Installing $module with $PYTHON_CMD..."
-        "$PYTHON_PATH" -m pip install "$module"
-    fi
-done
+# Install dependencies using the same Python
+echo "Installing dependencies from $REQUIREMENTS_FILE..."
+"$PYTHON_PATH" -m pip install --upgrade pip
+"$PYTHON_PATH" -m pip install -r "$REQUIREMENTS_FILE"
 
 # Run target file using same Python
 if [ ! -f "$TARGET_FILE" ]; then
