@@ -3,7 +3,8 @@
 set -e
 
 REQUIRED_PYTHON="3.10"
-TARGET_FILE="src/model.py"
+VECTOR_DB="src/ingest.py"
+TARGET_FILE="src/app.py"
 
 # Load modules from requirements.txt
 REQUIREMENTS_FILE="requirements.txt"
@@ -80,4 +81,5 @@ if [ ! -f "$TARGET_FILE" ]; then
 fi
 
 echo "Running $TARGET_FILE with $PYTHON_CMD..."
-"$PYTHON_PATH" "$TARGET_FILE"
+"$PYTHON_PATH" "$VECTOR_DB"
+"$PYTHON_PATH" -m streamlit run "$TARGET_FILE"
