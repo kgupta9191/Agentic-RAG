@@ -277,12 +277,4 @@ The tests cover:
 | Equation extraction | Regex heuristics | Better parser for scientific notation and LaTeX blocks |
 | Production readiness | Local FAISS + Streamlit demo style | Add observability, auth, and deployment hardening |
 
----
 
-## 🙌 Acknowledgement
-
-README style inspiration was taken from the structure richness of:
-
-- https://github.com/HKUDS/CLI-Anything
-
-while keeping all technical descriptions aligned with this repository’s actual implementation.
